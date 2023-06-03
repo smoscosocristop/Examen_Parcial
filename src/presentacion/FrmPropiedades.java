@@ -4,6 +4,8 @@
  */
 package presentacion;
 
+import dominio.Propiedades;
+import javax.swing.JOptionPane;
 import negocio.PropiedadesControl;
 
 /**
@@ -15,19 +17,24 @@ public class FrmPropiedades extends javax.swing.JInternalFrame {
     /**
      * Creates new form FrmPropiedades
      */
-    private final PropiedadesControl control;
+    private final PropiedadesControl CONTROL;
+    private Propiedades obj;
+    
     public FrmPropiedades() {
         initComponents();
-        control = new PropiedadesControl();
-        this.listar();
+        CONTROL = new PropiedadesControl();
+        obj = new Propiedades();
+        this.listar("");
+        tabGeneral.setEnabledAt(1, false);
+        txtId.setVisible(false);
 
     }
     
-    private void listar(){
-        String texto = txtBuscar.getText();
-        tablaListado.setModel(control.listar(texto));
+    private void listar(String texto) {
         
+        tablaListado.setModel(this.CONTROL.listar(texto));
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,17 +45,32 @@ public class FrmPropiedades extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabGeneral = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListado = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        txtId = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
+        txtCaracteristicas = new javax.swing.JTextField();
+        txtEstado = new javax.swing.JTextField();
+        txtPrecio = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        Agregar = new javax.swing.JButton();
+        Cancelar = new javax.swing.JButton();
+        Actualizar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -70,13 +92,33 @@ public class FrmPropiedades extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Nombre");
 
-        jButton1.setText("Buscar");
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Nuevo");
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Editar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Eliminar");
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -92,13 +134,13 @@ public class FrmPropiedades extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnNuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)
+                        .addComponent(btnEliminar)
                         .addGap(32, 32, 32)))
                 .addContainerGap())
         );
@@ -109,58 +151,325 @@ public class FrmPropiedades extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnNuevo)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnEliminar))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(80, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Listado", jPanel2);
+        tabGeneral.addTab("Listado", jPanel2);
+
+        jLabel2.setText("Nombre");
+
+        jLabel3.setText("Direccion");
+
+        jLabel4.setText("Carateristicas");
+
+        jLabel5.setText("Estado");
+
+        jLabel6.setText("Precio de Alquiler");
+
+        Agregar.setText("Agregar");
+        Agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarActionPerformed(evt);
+            }
+        });
+
+        Cancelar.setText("Cancelar");
+        Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarActionPerformed(evt);
+            }
+        });
+
+        Actualizar.setText("Actualizar");
+        Actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActualizarActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Id");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1034, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 395, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCaracteristicas)
+                    .addComponent(txtDireccion)
+                    .addComponent(txtNombre)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPrecio)
+                    .addComponent(txtId))
+                .addContainerGap(542, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Mantenimiento", jPanel1);
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtCaracteristicas, txtDireccion, txtEstado, txtNombre});
+
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCaracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Agregar)
+                    .addComponent(Cancelar)
+                    .addComponent(Actualizar))
+                .addGap(100, 100, 100))
+        );
+
+        tabGeneral.addTab("Mantenimiento", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(tabGeneral)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1))
+                .addComponent(tabGeneral))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        this.listar(txtBuscar.getText());
+    }//GEN-LAST:event_btnBuscarActionPerformed
+   
+    private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
+        String resp;
+        String nombre, direccion, caracteristicas, estado, precioalquiler;
+        nombre = txtNombre.getText();
+        direccion=txtDireccion.getText();
+        caracteristicas=txtCaracteristicas.getText();
+        estado=txtEstado.getText();
+        precioalquiler=txtPrecio.getText();
+
+        
+        if (nombre.length() == 0||direccion.length() == 0||caracteristicas.length() == 0||estado.length() == 0||precioalquiler.length() ==0) {
+            
+            this.mensajeAdvertencia("Debes ingresar todos los datos");
+        }else{
+            obj.setNombre(nombre);
+            obj.setDireccion(direccion);
+            obj.setCaracteristicas(caracteristicas);
+            obj.setEstado(estado);
+            obj.setPrecioalquiler(Double.parseDouble(precioalquiler));
+
+            resp = this.CONTROL.insertar(obj);
+            if (resp.equals("OK")) {
+                this.mensajeOK("Registro insertado Correctamente");
+                this.verListado();
+                this.listar("");
+                this.limpiar();
+
+            }else {
+                this.mensajeError(resp);
+            }
+        }
+    }//GEN-LAST:event_AgregarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        this.verMantenimiento();
+        Agregar.setVisible(true);
+        Actualizar.setVisible(false);
+
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+        // Cerrar el formulario de registro
+        this.verListado();
+        this.limpiar();
+    }//GEN-LAST:event_CancelarActionPerformed
+
+    private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
+        // Validar que el campo nombre no este vacío
+        String resp;
+        int id;
+        String nombre, direccion, caracteristicas, estado, precioalquiler;
+        id = Integer.parseInt(txtId.getText());
+        nombre = txtNombre.getText();
+        direccion=txtDireccion.getText();
+        caracteristicas=txtCaracteristicas.getText();
+        estado=txtEstado.getText();
+        precioalquiler=txtPrecio.getText();
+        
+        if (nombre.length() == 0||direccion.length() == 0||caracteristicas.length() == 0||estado.length() == 0||precioalquiler.length() ==0) {
+            this.mensajeAdvertencia("Debes ingresar un nombre.");
+        } else {
+            obj.setId(id);
+            obj.setNombre(nombre);
+            obj.setDireccion(direccion);
+            obj.setCaracteristicas(caracteristicas);
+            obj.setEstado(estado);
+            obj.setPrecioalquiler(Double.parseDouble(precioalquiler));
+            resp = this.CONTROL.actualizar(obj);
+                if (resp.equals("OK")) {
+                this.mensajeOK("Registro actualizado Correctamente");
+                this.verListado();
+                this.listar("");
+                this.limpiar();
+            } else {
+                JOptionPane.showMessageDialog(this, resp, "Sistema", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_ActualizarActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (tablaListado.getSelectedRowCount() == 1) {
+        String id = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 0));
+        String nombre = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 1));
+        String direccion = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 3));
+        String caracteristicas = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 4));
+        String estado = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 5));
+        String precioalquiler = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 6));
+
+        txtId.setText(id);
+        txtNombre.setText(nombre);
+        txtDireccion.setText(direccion);
+        txtCaracteristicas.setText(caracteristicas);
+        txtEstado.setText(estado);
+        txtPrecio.setText(precioalquiler);
+        this.verMantenimiento();
+        Agregar.setVisible(false);
+        Actualizar.setVisible(true);
+        } else {
+        mensajeAdvertencia("Seleccione el registro a editar.");
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        String resp;
+        // Validar que el usuario ha seleccionado un registro
+        if (tablaListado.getSelectedRowCount() == 1) {
+            if (this.mensajePregunta("Desea eliminar el registro?") == 0) {
+                String id = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 0));
+                resp = this.CONTROL.eliminar(Integer.parseInt(id));
+                    if (resp.equals("OK")) {
+                    this.mensajeOK("Registro eliminado correctamente");
+                    this.listar("");
+                } else {
+                    this.mensajeError(resp);
+                }
+            }
+        } else {
+        this.mensajeAdvertencia("Seleccione el registro a eliminar.");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton Actualizar;
+    private javax.swing.JButton Agregar;
+    private javax.swing.JButton Cancelar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane tabGeneral;
     private javax.swing.JTable tablaListado;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCaracteristicas;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiar() {
+        txtNombre.setText("");
+        txtDireccion.setText("");
+        txtCaracteristicas.setText("");
+        txtEstado.setText("");
+        txtPrecio.setText("");
+
+    }
+    
+    private void mensajeOK(String mensaje) {
+    JOptionPane.showMessageDialog(this, mensaje, "Sistema", JOptionPane.INFORMATION_MESSAGE);
+    }
+    private void mensajeAdvertencia(String mensaje) {
+    JOptionPane.showMessageDialog(this, mensaje, "Sistema", JOptionPane.WARNING_MESSAGE);
+    }
+    private void mensajeError(String mensaje) {
+    JOptionPane.showMessageDialog(this, mensaje, "Sistema", JOptionPane.ERROR_MESSAGE);
+    }
+    private int mensajePregunta(String mensaje) {
+    int resp = JOptionPane.showConfirmDialog(this, mensaje, "Sistema", 
+   JOptionPane.YES_NO_OPTION);
+    return resp;
+    }
+    private void verListado() {
+        tabGeneral.setEnabledAt(0, true);
+        tabGeneral.setSelectedIndex(0);
+        tabGeneral.setEnabledAt(1, false);
+    }
+    private void verMantenimiento() {
+        tabGeneral.setEnabledAt(1, true);
+        tabGeneral.setSelectedIndex(1);
+        tabGeneral.setEnabledAt(0, false);
+    }
 }
+
+    
